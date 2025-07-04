@@ -2,6 +2,7 @@ package com.Recipe.Recipe.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+    @Lob
     private String directions;
 
     @Enumerated(value = EnumType.STRING)
@@ -27,7 +29,7 @@ public class Recipe {
 
     @ManyToMany
     @JoinTable(name="recipe_category", joinColumns = @JoinColumn(name="recipe_id"), inverseJoinColumns = @JoinColumn(name="category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Set<Category> getCategories() {
         return categories;
@@ -38,7 +40,8 @@ public class Recipe {
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredents;
+    private Set<Ingredient> ingredients = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -119,12 +122,12 @@ public class Recipe {
         this.description = description;
     }
 
-    public Set<Ingredient> getIngredents() {
-        return ingredents;
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredents(Set<Ingredient> ingredents) {
-        this.ingredents = ingredents;
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public Difficulty getDifficulty() {
