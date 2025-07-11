@@ -4,8 +4,12 @@ import com.Recipe.Recipe.domain.Recipe;
 import com.Recipe.Recipe.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,22 +19,21 @@ import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
 
-    RecipeServiceImpl recipeService;
-
     @Mock
-    RecipeRepository recipeRepository;
+    private RecipeRepository recipeRepository;
+
+    @InjectMocks
+    RecipeServiceImpl recipeService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void getRecipes() {
 
         Recipe recipe = new Recipe();
-
         HashSet recipesData = new HashSet<>();
         recipesData.add(recipe);
 
