@@ -39,7 +39,7 @@ public class Recipe {
         this.categories = categories;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
     private Set<Ingredient> ingredients = new HashSet<>();
 
     public Long getId() {
